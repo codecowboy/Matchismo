@@ -22,6 +22,7 @@
 		3681924C16C37EAB005952C2 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 3681924B16C37EAB005952C2 /* Deck.m */; };
 		3681924F16C37EFB005952C2 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3681924E16C37EFB005952C2 /* PlayingCard.m */; };
 		3681925216C37F4D005952C2 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 3681925116C37F4D005952C2 /* PlayingCardDeck.m */; };
+		369DA3FE172A45C800DBA0A2 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 369DA3FD172A45C800DBA0A2 /* CardMatchingGame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		3681924E16C37EFB005952C2 /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCard.m; path = Model/PlayingCard.m; sourceTree = "<group>"; };
 		3681925016C37F4D005952C2 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardDeck.h; sourceTree = "<group>"; };
 		3681925116C37F4D005952C2 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardDeck.m; sourceTree = "<group>"; };
+		369DA3FC172A45C800DBA0A2 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
+		369DA3FD172A45C800DBA0A2 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				3681924E16C37EFB005952C2 /* PlayingCard.m */,
 				3681925016C37F4D005952C2 /* PlayingCardDeck.h */,
 				3681925116C37F4D005952C2 /* PlayingCardDeck.m */,
+				369DA3FC172A45C800DBA0A2 /* CardMatchingGame.h */,
+				369DA3FD172A45C800DBA0A2 /* CardMatchingGame.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 				3681924C16C37EAB005952C2 /* Deck.m in Sources */,
 				3681924F16C37EFB005952C2 /* PlayingCard.m in Sources */,
 				3681925216C37F4D005952C2 /* PlayingCardDeck.m in Sources */,
+				369DA3FE172A45C800DBA0A2 /* CardMatchingGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +337,7 @@
 				3681924516C370F5005952C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

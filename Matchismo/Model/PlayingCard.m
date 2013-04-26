@@ -12,6 +12,23 @@
 
 @synthesize suit = _suit; // required as we are implementing getter AND setter
 
+- (int)match:(NSArray *)otherCards //overrides Card's match method
+{
+    int score = 0;
+    
+    if (otherCards.count ==1) {
+        PlayingCard *otherCard = [otherCards lastObject];
+        if ([otherCard.suit isEqualToString:self.suit]) {
+            score = 1;
+        } else if (otherCard.rank == self.rank) {
+            score = 4;
+        }
+        
+    }
+    return score;
+    
+}
+
 - (NSString *)contents
 {
     NSArray *rankStrings = [PlayingCard rankStrings];
