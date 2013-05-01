@@ -35,7 +35,7 @@
 //    return _deck;
 //}
 - (IBAction)switchGameMode:(id)sender {
-    self.game.matchMode = [sender selectedSegmentIndex] +2;
+    self.game.matchMode = [sender selectedSegmentIndex] +1;
     NSLog(@"game mode: %d", self.game.matchMode);
 }
 
@@ -43,6 +43,7 @@
 
     self.game = nil; //runs the setter?
     self.flipCount = 0;
+    self.gameMode.enabled = YES; //disable gameMode change during the game
     [self updateUI];
     
 }
@@ -51,7 +52,7 @@
 {
     if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
                                                          usingDeck:[[PlayingCardDeck alloc] init]
-                         usingGameMode:self.gameMode.selectedSegmentIndex + 2 ] ;
+                         usingGameMode:self.gameMode.selectedSegmentIndex + 1 ] ;
     
     return _game;
 }
@@ -105,6 +106,7 @@
     
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount ++;
+    self.gameMode.enabled = NO; //disable gameMode change during the game
     [self updateUI];
 
 }

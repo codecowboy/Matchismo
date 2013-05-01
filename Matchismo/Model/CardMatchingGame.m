@@ -57,36 +57,79 @@
 
 - (void) flipCardAtIndex:(NSUInteger)index
 {
-    Card *card = [self cardAtIndex:index];
-    self.lastFlipText = [NSString stringWithFormat:@"Flipped %@",  card.contents];
-    if (!card.isUnplayable) {
+//    Card *card = [self cardAtIndex:index];
+//    self.lastFlipText = [NSString stringWithFormat:@"Flipped %@",  card.contents];
+//    if (!card.isUnplayable) { //not already matched
+//        
+//        if (!card.isFaceUp) {
+//            //see if flipping the card creates a match
+//            for (Card *otherCard in self.cards) {
+//                if (otherCard.isFaceUp && !otherCard.isUnplayable) { //if the card to be matched is face up and not already matched
+//                    int matchScore = [card match:@[otherCard]]; //@creates the array
+//                    if(matchScore) {
+//                        otherCard.unplayable = YES;
+//                        card.unplayable = YES;
+//                  
+//                        self.score += matchScore * MATCH_BONUS;
+//                        self.lastFlipText = [NSString stringWithFormat:@"Matched %@ with %@ for %d points", card.contents, otherCard.contents, self.score];
+//                        
+//                    } else {
+//                        otherCard.faceUP = NO;
+//                        self.lastFlipText = [NSString stringWithFormat:@" %@ and %@ no matchy! :(", card.contents, otherCard.contents];
+//                        self.score -= MISMATCH_PENALTY;      
+//
+//                    }
+//                    break;
+//                }
+//            }
+//            self.score -= FLIP_COST;
+//        }
+//        card.faceUP = !card.isFaceUp;
+//    }
+
+
+        Card *card = [self cardAtIndex:index];
+        NSMutableArray *cardsFacingUp = [[NSMutableArray alloc] init];
         
-        if (!card.isFaceUp) {
-            //see if flipping the card creates a match
+        
+        if (card && !card.isFaceUp) {
             for (Card *otherCard in self.cards) {
                 if (otherCard.isFaceUp && !otherCard.isUnplayable) {
-                    int matchScore = [card match:@[otherCard]]; //@creates the array
-                    if(matchScore) {
-                        otherCard.unplayable = YES;
-                        card.unplayable = YES;
-                  
-                        self.score += matchScore * MATCH_BONUS;
-                        self.lastFlipText = [NSString stringWithFormat:@"Matched %@ with %@ for %d points", card.contents, otherCard.contents, self.score];
-                        
-                    } else {
-                        otherCard.faceUP = NO;
-                        self.lastFlipText = [NSString stringWithFormat:@" %@ and %@ no matchy! :(", card.contents, otherCard.contents];
-                        self.score -= MISMATCH_PENALTY;      
-
-                    }
-                    break;
+                    [cardsFacingUp addObject:otherCard];
                 }
             }
+            
+            if ([cardsFacingUp count] == self.matchMode) {
+                int matchScore = [card match:cardsFacingUp];
+                
+                if (matchScore) {
+                    card.unplayable = YES;
+                    for (Card *otherCard in cardsFacingUp) {
+                        otherCard.unplayable = YES;
+                    }
+                    
+                    self.score += matchScore * MATCH_BONUS;
+                    self.lastFlipText =[NSString stringWithFormat:@"Matched %@ and %@ for %d points!",[cardsFacingUp componentsJoinedByString:@", "],card.contents, matchScore * MATCH_BONUS];
+                    NSLog(@"lastfliptext:%@ ", self.lastFlipText);
+                } else {
+                    
+                    for (Card *otherCard in cardsFacingUp) {
+                        otherCard.faceUP= NO;
+                    }
+                    
+                    self.score -= MISMATCH_PENALTY;
+                    self.lastFlipText = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!",[cardsFacingUp componentsJoinedByString:@", "],card.contents,MISMATCH_PENALTY];
+                }
+            } else {
+                self.lastFlipText = [NSString stringWithFormat:@"Flipped up %@",card.contents];
+            }
+            
             self.score -= FLIP_COST;
+            
         }
-        card.faceUP = !card.isFaceUp;
+        
+        card.faceUP = !card.faceUP;
+        
     }
-
-}
 
 @end
