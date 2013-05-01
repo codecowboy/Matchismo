@@ -24,10 +24,28 @@
             score = 4;
         }
         
+    } else if (otherCards.count == 2) {
+        
+        PlayingCard *firstCard = [otherCards objectAtIndex:0];
+        PlayingCard *secondCard = [otherCards objectAtIndex:1];
+        
+        if ([firstCard.suit isEqualToString:self.suit] || [secondCard.suit isEqualToString:self.suit]){
+            score += 1;
+        } else if ([firstCard.suit isEqualToString:self.suit] && [secondCard.suit isEqualToString:self.suit]) {
+            score += 2;
+        if (firstCard.rank == self.rank || secondCard.rank == self.rank) {
+            score += 4;
+        } else if (firstCard.rank == self.rank && secondCard.rank == self.rank) {
+            score += 8;
+        }
+        
+        
+        }
     }
     return score;
     
 }
+    
 
 - (NSString *)contents
 {

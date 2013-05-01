@@ -19,6 +19,9 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastFlip;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
 
 @end
 
@@ -31,11 +34,25 @@
 //    }
 //    return _deck;
 //}
+- (IBAction)switchGameMode:(id)sender {
+    self.game.matchMode = [sender selectedSegmentIndex] +2;
+    NSLog(@"game mode: %d", self.game.matchMode);
+}
+
+- (IBAction)newDeal:(UIButton *)sender {
+
+    self.game = nil; //runs the setter?
+    self.flipCount = 0;
+    [self updateUI];
+    
+}
 
 - (CardMatchingGame *)game
 {
     if (!_game) _game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
-                                                         usingDeck:[[PlayingCardDeck alloc] init]];
+                                                         usingDeck:[[PlayingCardDeck alloc] init]
+                         usingGameMode:self.gameMode.selectedSegmentIndex + 2 ] ;
+    
     return _game;
 }
 
@@ -68,9 +85,12 @@
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.2 :1.0;
+ 
         
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    self.lastFlip.text = self.game.lastFlipText;
+    
 }
 
 - (IBAction)flipCard:(UIButton *)sender

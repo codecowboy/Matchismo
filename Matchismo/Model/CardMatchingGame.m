@@ -15,6 +15,7 @@
 @interface CardMatchingGame()
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (nonatomic) int score;
+@property (nonatomic) NSString *lastFlipText;
 @end
 
 @implementation CardMatchingGame
@@ -25,9 +26,10 @@
     return _cards;
 }
 
-- (id) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
+- (id) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck usingGameMode:(NSUInteger)matchMode
 {
     self = [super init];
+    self.matchMode = matchMode;
     
     if (self) { //checks for failure return of nil from super class
         
@@ -56,7 +58,7 @@
 - (void) flipCardAtIndex:(NSUInteger)index
 {
     Card *card = [self cardAtIndex:index];
-    
+    self.lastFlipText = [NSString stringWithFormat:@"Flipped %@",  card.contents];
     if (!card.isUnplayable) {
         
         if (!card.isFaceUp) {
@@ -69,10 +71,13 @@
                         card.unplayable = YES;
                   
                         self.score += matchScore * MATCH_BONUS;
+                        self.lastFlipText = [NSString stringWithFormat:@"Matched %@ with %@ for %d points", card.contents, otherCard.contents, self.score];
                         
                     } else {
                         otherCard.faceUP = NO;
-                        self.score -= MISMATCH_PENALTY;
+                        self.lastFlipText = [NSString stringWithFormat:@" %@ and %@ no matchy! :(", card.contents, otherCard.contents];
+                        self.score -= MISMATCH_PENALTY;      
+
                     }
                     break;
                 }
@@ -81,6 +86,7 @@
         }
         card.faceUP = !card.isFaceUp;
     }
+
 }
 
 @end

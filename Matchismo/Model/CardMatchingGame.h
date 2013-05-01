@@ -12,12 +12,15 @@
 @interface CardMatchingGame : NSObject
 
 - (id)initWithCardCount:(NSUInteger) cardCount
-              usingDeck:(Deck *)deck;
+              usingDeck:(Deck *)deck
+          usingGameMode:(NSUInteger) cardsToMatch;
 
 - (void) flipCardAtIndex:(NSUInteger) index;
 
 - (Card *)cardAtIndex:(NSUInteger) index;
 
-@property (nonatomic, readonly) int score; //no setter, only a getter
 
+@property (nonatomic, readonly) int score; //no setter, only a getter
+@property (nonatomic, readonly) NSString *lastFlipText;
+@property (nonatomic) NSUInteger matchMode;
 @end
